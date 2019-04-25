@@ -27,14 +27,6 @@ public class MainViewModel extends ViewModel {
 
     public MainViewModel(MoviesInteractor interactor) {
         mMoviesInteractor = interactor;
-    }
-
-
-    public MutableLiveData<List<String>> getSearchQueriesLiveData() {
-        return mSearchQueriesLiveData;
-    }
-
-    public void onStart() {
         if (mSearchQueriesLiveData.getValue() != null) {
             return;
         }
@@ -50,6 +42,11 @@ public class MainViewModel extends ViewModel {
                         )
         );
     }
+
+    public MutableLiveData<List<String>> getSearchQueriesLiveData() {
+        return mSearchQueriesLiveData;
+    }
+
 
     public void searchItem(@NonNull String query) {
         if (query.length() > 0) {

@@ -10,4 +10,11 @@ public class SearchResultsNetworkModel {
     public List<Movie> Search;
     @NonNull
     public String Response;
+
+    public SearchResultsNetworkModel(@NonNull List<Movie> search, @NonNull String response) {
+        Search = search;
+        Response = response;
+    }
+
+    public SearchResultsNetworkModel() {}
 }

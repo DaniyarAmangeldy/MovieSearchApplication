@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private MainViewModel mViewModel;
     @NonNull
-    private RecyclerView mSearchQueriesRecyclerView;
-    @NonNull
     private TextInputEditText mSearchEditText;
     @NonNull
     SearchHistoryAdapter mAdapter;
@@ -44,25 +42,18 @@ public class MainActivity extends AppCompatActivity {
         observeViewModel();
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mViewModel.onStart();
-    }
-
     private void observeViewModel() {
         mViewModel.getSearchQueriesLiveData().observe(this, this::onSearchQueriesLoaded);
         mViewModel.getOnSearchClickedEvent().observe(this, this::navigateToSearchResults);
     }
 
     private void setupViews() {
-        mSearchQueriesRecyclerView = findViewById(R.id.search_history_list);
+        RecyclerView searchQueriesRecyclerView = findViewById(R.id.search_history_list);
         mSearchEditText = findViewById(R.id.search_input_edit_text);
         findViewById(R.id.button_search).setOnClickListener(this::onSearchButtonClicked);
         mAdapter = new SearchHistoryAdapter(new SearchHistoryDiffUtil(), query -> mViewModel.searchItem(query));
-        mSearchQueriesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mSearchQueriesRecyclerView.setAdapter(mAdapter);
+        searchQueriesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        searchQueriesRecyclerView.setAdapter(mAdapter);
     }
 
     private void onSearchQueriesLoaded(@NonNull List<String> queries) {

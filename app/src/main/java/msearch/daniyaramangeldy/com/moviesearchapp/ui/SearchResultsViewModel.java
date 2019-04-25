@@ -25,11 +25,11 @@ public class SearchResultsViewModel extends ViewModel {
 
     private CompositeDisposable mDisposableList = new CompositeDisposable();
 
-    SearchResultsViewModel(MoviesInteractor interactor) {
+    public SearchResultsViewModel(MoviesInteractor interactor) {
         mMoviesInteractor = interactor;
     }
 
-    void setQuery(@NonNull String query) {
+    public void setQuery(@NonNull String query) {
         if (mMoviesLiveData.getValue() != null) {
             return;
         }

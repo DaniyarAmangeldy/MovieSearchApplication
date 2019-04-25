@@ -21,6 +21,16 @@ public class Movie {
     @NonNull
     public String type;
 
+    public Movie(@NonNull String id, @NonNull String title, @NonNull String year, @NonNull String posterUrl, @NonNull String type) {
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.posterUrl = posterUrl;
+        this.type = type;
+    }
+
+    public Movie() {}
+
     @NonNull
     public String getId() {
         return id;
