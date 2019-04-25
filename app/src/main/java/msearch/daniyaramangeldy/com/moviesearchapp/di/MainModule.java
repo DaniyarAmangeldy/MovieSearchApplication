@@ -1,12 +1,15 @@
 package msearch.daniyaramangeldy.com.moviesearchapp.di;
 
 import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
-import msearch.daniyaramangeldy.com.moviesearchapp.ui.MainActivity;
+import dagger.Provides;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.interactor.MoviesInteractor;
+import msearch.daniyaramangeldy.com.moviesearchapp.ui.MainViewModel;
 
 @Module
-public abstract class MainModule {
+public class MainModule {
 
-    @ContributesAndroidInjector(modules = { ViewModelFactoryModule.class })
-    public abstract MainActivity bind();
+    @Provides
+    MainViewModel.Factory provideMainViewModelFactory(MoviesInteractor interactor) {
+        return new MainViewModel.Factory(interactor);
+    }
 }

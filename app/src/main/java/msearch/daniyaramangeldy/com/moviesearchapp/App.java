@@ -3,27 +3,30 @@ package msearch.daniyaramangeldy.com.moviesearchapp;
 import android.app.Activity;
 import android.app.Application;
 
-import dagger.android.AndroidInjector;
-import dagger.android.HasActivityInjector;
-import dagger.android.support.DaggerApplication;
-import msearch.daniyaramangeldy.com.moviesearchapp.di.AppModule;
-import msearch.daniyaramangeldy.com.moviesearchapp.di.DaggerApplicationComponent;
-import msearch.daniyaramangeldy.com.moviesearchapp.di.NetworkModule;
+import javax.inject.Inject;
 
-public class App extends DaggerApplication {
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import msearch.daniyaramangeldy.com.moviesearchapp.di.DaggerApplicationComponent;
+
+public class App extends Application implements HasActivityInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
         DaggerApplicationComponent
                 .builder()
-                .appModule(new AppModule(this))
-                .networkModule(new NetworkModule())
-                .build();
+                .application(this)
+                .build()
+                .inject(this);
     }
 
     @Override
-    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return null;
+    public AndroidInjector<Activity> activityInjector() {
+        return activityDispatchingAndroidInjector;
     }
 }
