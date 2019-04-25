@@ -14,6 +14,8 @@ import msearch.daniyaramangeldy.com.moviesearchapp.domain.repository.SearchQuery
 
 public class MoviesInteractor {
 
+    private static final String RESPONSE_SUCCESS = "True";
+
     private MoviesRemoteRepository mRepository;
     private SearchQueryRepository mSearchQueriesRepository;
 
@@ -35,7 +37,7 @@ public class MoviesInteractor {
         return mRepository
                 .searchMovie(BuildConfig.API_ENDPOINT, BuildConfig.API_KEY, query)
                 .map((response) -> {
-                    if (response.Response.equals("True")) {
+                    if (response.Response.equals(RESPONSE_SUCCESS)) {
                         return response.Search;
                     } else {
                         return new ArrayList<>();

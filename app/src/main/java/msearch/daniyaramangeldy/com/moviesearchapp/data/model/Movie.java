@@ -3,6 +3,7 @@ package msearch.daniyaramangeldy.com.moviesearchapp.data.model;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class Movie {
     @SerializedName("imdbID")
@@ -29,7 +30,8 @@ public class Movie {
         this.type = type;
     }
 
-    public Movie() {}
+    public Movie() {
+    }
 
     @NonNull
     public String getId() {
@@ -74,5 +76,18 @@ public class Movie {
 
     public void setType(@NonNull String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Movie) {
+            Movie other = (Movie) obj;
+            return id.equals(other.id) &&
+                    title.equals(other.title) &&
+                    year.equals(other.year) &&
+                    posterUrl.equals(other.posterUrl) &&
+                    type.equals(other.type);
+        }
+        return false;
     }
 }
