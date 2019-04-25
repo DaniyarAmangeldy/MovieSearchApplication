@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.AndroidInjection;
 import msearch.daniyaramangeldy.com.moviesearchapp.R;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
 
 public class SearchResultsActivity extends AppCompatActivity {
 

@@ -3,12 +3,11 @@ package msearch.daniyaramangeldy.com.moviesearchapp.data.repository;
 import java.util.List;
 
 import androidx.room.Dao;
-import androidx.room.Ignore;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import io.reactivex.Flowable;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.SearchQueryDatabaseModel;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.SearchQueryDatabaseModel;
 
 @Dao
 public interface SearchDao {

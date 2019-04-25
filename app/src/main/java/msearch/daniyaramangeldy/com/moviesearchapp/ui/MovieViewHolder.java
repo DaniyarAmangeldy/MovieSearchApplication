@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import msearch.daniyaramangeldy.com.moviesearchapp.R;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder {
 

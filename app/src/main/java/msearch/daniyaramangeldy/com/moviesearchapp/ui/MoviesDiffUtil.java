@@ -2,7 +2,7 @@ package msearch.daniyaramangeldy.com.moviesearchapp.ui;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
 
 public class MoviesDiffUtil extends DiffUtil.ItemCallback<Movie> {
 

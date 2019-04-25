@@ -17,8 +17,8 @@ import androidx.lifecycle.LiveData;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.SearchResultsNetworkModel;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.SearchResultsModel;
 import msearch.daniyaramangeldy.com.moviesearchapp.data.repository.MoviesRemoteRepository;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.interactor.MoviesInteractor;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.repository.SearchQueryRepository;
@@ -45,8 +45,8 @@ public class SearchResultsViewModelTest {
 
     private Movie testMovie = new Movie("123", "title", "year", "posterUrl", "type");
 
-    private SearchResultsNetworkModel testModel =
-            new SearchResultsNetworkModel(Collections.singletonList(testMovie), RESPONSE_TRUE);
+    private SearchResultsModel testModel =
+            new SearchResultsModel(Collections.singletonList(testMovie), RESPONSE_TRUE);
 
     @Before
     public void setUp() {

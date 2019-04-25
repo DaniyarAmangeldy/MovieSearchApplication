@@ -6,7 +6,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.SearchQueryDatabaseModel;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.SearchQueryDatabaseModel;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.repository.SearchQueryRepository;
 
 public class SearchQueriesDatabaseRepository implements SearchQueryRepository {

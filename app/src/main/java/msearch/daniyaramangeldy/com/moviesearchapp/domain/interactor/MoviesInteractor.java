@@ -8,7 +8,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import msearch.daniyaramangeldy.com.moviesearchapp.BuildConfig;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
 import msearch.daniyaramangeldy.com.moviesearchapp.data.repository.MoviesRemoteRepository;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.repository.SearchQueryRepository;
 

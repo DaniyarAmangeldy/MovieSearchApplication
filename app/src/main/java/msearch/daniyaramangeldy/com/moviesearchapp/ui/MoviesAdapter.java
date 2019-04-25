@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import msearch.daniyaramangeldy.com.moviesearchapp.R;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
 
 public class MoviesAdapter extends ListAdapter<Movie, MovieViewHolder> {
 

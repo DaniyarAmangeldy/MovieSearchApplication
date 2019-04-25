@@ -4,8 +4,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import javax.inject.Provider;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
+import msearch.daniyaramangeldy.com.moviesearchapp.domain.model.Movie;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.interactor.MoviesInteractor;
 
 public class SearchResultsViewModel extends ViewModel {

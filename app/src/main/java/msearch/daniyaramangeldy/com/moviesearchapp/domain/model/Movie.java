@@ -1,4 +1,4 @@
-package msearch.daniyaramangeldy.com.moviesearchapp.data.model;
+package msearch.daniyaramangeldy.com.moviesearchapp.domain.model;
 
 import com.google.gson.annotations.SerializedName;
 

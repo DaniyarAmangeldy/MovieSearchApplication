@@ -1,4 +1,4 @@
-package msearch.daniyaramangeldy.com.moviesearchapp.data.model;
+package msearch.daniyaramangeldy.com.moviesearchapp.domain.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
