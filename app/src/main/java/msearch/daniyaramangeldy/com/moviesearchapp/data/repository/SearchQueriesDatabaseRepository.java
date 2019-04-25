@@ -5,7 +5,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Completable;
-import io.reactivex.Single;
+import io.reactivex.Flowable;
 import msearch.daniyaramangeldy.com.moviesearchapp.data.model.SearchQueryDatabaseModel;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.repository.SearchQueryRepository;
 
@@ -18,12 +18,11 @@ public class SearchQueriesDatabaseRepository implements SearchQueryRepository {
     }
 
     @Override
-    public Single<List<String>> getSearchQueries() {
-        return Single
-                .fromCallable(() -> mSearchDao.getSearchQueries())
+    public Flowable<List<String>> getSearchQueries() {
+        return mSearchDao.getSearchQueries()
                 .map(list -> {
                     List<String> queries = new ArrayList();
-                    for (SearchQueryDatabaseModel item: list) {
+                    for (SearchQueryDatabaseModel item : list) {
                         queries.add(item.getQuery());
                     }
                     return queries;
@@ -34,9 +33,7 @@ public class SearchQueriesDatabaseRepository implements SearchQueryRepository {
     public Completable insertSearchQuery(@NonNull String query) {
         return Completable
                 .fromAction(() ->
-                        mSearchDao.insertQuery(
-                                new SearchQueryDatabaseModel(0, query)
-                        )
+                        mSearchDao.insertQuery(new SearchQueryDatabaseModel(query))
                 );
     }
 }

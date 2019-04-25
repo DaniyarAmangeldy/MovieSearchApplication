@@ -2,6 +2,8 @@ package msearch.daniyaramangeldy.com.moviesearchapp.di;
 
 import android.content.Context;
 
+import com.squareup.picasso.Picasso;
+
 import javax.inject.Singleton;
 
 import androidx.room.Room;
@@ -69,5 +71,11 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(BuildConfig.API_ENDPOINT)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    public Picasso providePicasso() {
+        return Picasso.get();
     }
 }

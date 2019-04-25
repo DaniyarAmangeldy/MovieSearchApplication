@@ -4,33 +4,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
+import androidx.annotation.Nullable;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.ListAdapter;
 import msearch.daniyaramangeldy.com.moviesearchapp.R;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
 
-public class SearchHistoryAdapter extends ListAdapter<Movie, MovieViewHolder> {
+public class SearchHistoryAdapter extends ListAdapter<String, SearchQueryViewHolder> {
 
-    private Picasso mPicasso;
+    @Nullable
+    private Consumer<String> mOnClickCallback;
 
-    protected SearchHistoryAdapter(@NonNull SearchHistoryDiffUtil diffCallback, @NonNull Picasso picasso) {
+    protected SearchHistoryAdapter(
+            @NonNull SearchHistoryDiffUtil diffCallback,
+            @Nullable Consumer<String> onClickCallback
+    ) {
         super(diffCallback);
-        mPicasso = picasso;
+        mOnClickCallback = onClickCallback;
     }
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_item, parent, false);
+    public SearchQueryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_query_item, parent, false);
 
-        return new MovieViewHolder(view);
+        return new SearchQueryViewHolder(view, mOnClickCallback);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.bind(getItem(position), mPicasso);
+    public void onBindViewHolder(@NonNull SearchQueryViewHolder holder, int position) {
+        holder.bind(getItem(position));
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull SearchQueryViewHolder holder) {
+        holder.recycle();
+        super.onViewRecycled(holder);
     }
 }

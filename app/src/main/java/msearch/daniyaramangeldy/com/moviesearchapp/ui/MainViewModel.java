@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
 import msearch.daniyaramangeldy.com.moviesearchapp.domain.interactor.MoviesInteractor;
 import msearch.daniyaramangeldy.com.moviesearchapp.infrastructure.SingleLiveEvent;
 
@@ -20,7 +19,6 @@ public class MainViewModel extends ViewModel {
     private final static String TAG = MainViewModel.class.getName();
 
     private MutableLiveData<List<String>> mSearchQueriesLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mIsSearchQueriesLoadingLiveData = new MutableLiveData<>();
     private MutableLiveData<String> mOnSearchClickedEvent = new SingleLiveEvent<>();
 
     private MoviesInteractor mMoviesInteractor;
@@ -37,29 +35,31 @@ public class MainViewModel extends ViewModel {
     }
 
     public void onStart() {
+        if (mSearchQueriesLiveData.getValue() != null) {
+            return;
+        }
+
         mDisposableList.add(
-        mMoviesInteractor
-                .getQueries()
-                .doOnSubscribe(disposable -> mIsSearchQueriesLoadingLiveData.postValue(true))
-                .doFinally(() -> mIsSearchQueriesLoadingLiveData.postValue(false))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        queries -> mSearchQueriesLiveData.setValue(queries),
-                        error -> Log.e(TAG, "Error while getting search queries from database", error)
-                )
+                mMoviesInteractor
+                        .getQueries()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                queries -> mSearchQueriesLiveData.setValue(queries),
+                                error -> Log.e(TAG, "Error while getting search queries from database", error)
+                        )
         );
     }
 
-    public void onSearchClicked(@NonNull String query) {
-        mOnSearchClickedEvent.setValue(query);
+    public void searchItem(@NonNull String query) {
+        if (query.length() > 0) {
+            mOnSearchClickedEvent.setValue(query);
+        }
     }
 
-    public MutableLiveData<Boolean> getIsSearchQueriesLoadingLiveData() {
-        return mIsSearchQueriesLoadingLiveData;
+    public MutableLiveData<String> getOnSearchClickedEvent() {
+        return mOnSearchClickedEvent;
     }
-
-
 
     @Override
     protected void onCleared() {
@@ -81,5 +81,4 @@ public class MainViewModel extends ViewModel {
             return (T) new MainViewModel(mInteractor);
         }
     }
-
 }

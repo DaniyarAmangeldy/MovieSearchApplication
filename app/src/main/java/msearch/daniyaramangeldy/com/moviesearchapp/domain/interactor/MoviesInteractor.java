@@ -5,6 +5,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import msearch.daniyaramangeldy.com.moviesearchapp.BuildConfig;
 import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
@@ -25,7 +26,7 @@ public class MoviesInteractor {
         return mSearchQueriesRepository.insertSearchQuery(query);
     }
 
-    public Single<List<String>> getQueries() {
+    public Flowable<List<String>> getQueries() {
         return mSearchQueriesRepository.getSearchQueries();
     }
 

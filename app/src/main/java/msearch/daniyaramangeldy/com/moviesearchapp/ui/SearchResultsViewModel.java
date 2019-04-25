@@ -18,7 +18,7 @@ import msearch.daniyaramangeldy.com.moviesearchapp.domain.interactor.MoviesInter
 
 public class SearchResultsViewModel extends ViewModel {
 
-    private MutableLiveData<List<Movie>> moviesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Movie>> mMoviesLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoadingStateLiveData = new MutableLiveData<>();
 
     private MoviesInteractor mMoviesInteractor;
@@ -30,6 +30,9 @@ public class SearchResultsViewModel extends ViewModel {
     }
 
     void setQuery(@NonNull String query) {
+        if (mMoviesLiveData.getValue() != null) {
+            return;
+        }
         mDisposableList.add(
                 mMoviesInteractor
                         .saveQuery(query)
@@ -39,7 +42,7 @@ public class SearchResultsViewModel extends ViewModel {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                movies -> moviesLiveData.setValue(movies),
+                                movies -> mMoviesLiveData.setValue(movies),
                                 error -> Log.e("Error", "Cannot load movies", error)
                         )
         );
@@ -52,7 +55,7 @@ public class SearchResultsViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<Movie>> getMoviesLiveData() {
-        return moviesLiveData;
+        return mMoviesLiveData;
     }
 
     public MutableLiveData<Boolean> getIsLoadingStateLiveData() {
@@ -61,16 +64,17 @@ public class SearchResultsViewModel extends ViewModel {
 
     public static class Factory implements ViewModelProvider.Factory {
 
-        private Provider<SearchResultsViewModel> mProvider;
+        @NonNull
+        private MoviesInteractor mInteractor;
 
-        public Factory(Provider<SearchResultsViewModel> provider) {
-            mProvider = provider;
+        public Factory(@NonNull MoviesInteractor interactor) {
+            mInteractor = interactor;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) mProvider.get();
+            return (T) new SearchResultsViewModel(mInteractor);
         }
     }
 }

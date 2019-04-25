@@ -1,31 +1,26 @@
 package msearch.daniyaramangeldy.com.moviesearchapp.data.model;
 
-import androidx.room.ColumnInfo;
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class SearchQueryDatabaseModel {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
 
-    @ColumnInfo(name = "username")
+    @PrimaryKey
+    @NonNull
     private String query;
 
+    @NonNull
     public String getQuery() {
         return query;
     }
 
-    public void setQuery(String query) {
+    public void setQuery(@NonNull String query) {
         this.query = query;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public SearchQueryDatabaseModel(int id, String query) {
-        this.id = id;
+    public SearchQueryDatabaseModel(@NonNull String query) {
         this.query = query;
     }
 }

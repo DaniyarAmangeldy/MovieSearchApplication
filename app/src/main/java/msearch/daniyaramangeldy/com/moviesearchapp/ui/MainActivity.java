@@ -1,8 +1,12 @@
 package msearch.daniyaramangeldy.com.moviesearchapp.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import com.squareup.picasso.Picasso;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -15,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.AndroidInjection;
 import msearch.daniyaramangeldy.com.moviesearchapp.R;
-import msearch.daniyaramangeldy.com.moviesearchapp.data.model.Movie;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private RecyclerView mSearchQueriesRecyclerView;
     @NonNull
+    private TextInputEditText mSearchEditText;
+    @NonNull
     SearchHistoryAdapter mAdapter;
 
     @Override
@@ -34,24 +39,45 @@ public class MainActivity extends AppCompatActivity {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSearchQueriesRecyclerView = findViewById(R.id.search_history_list);
-        setupAdapter();
+        setupViews();
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
         observeViewModel();
-        mViewModel.setQuery("Matrix");
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mViewModel.onStart();
     }
 
     private void observeViewModel() {
-        mViewModel.moviesLiveData.observe(this, this::onMoviesLoaded);
+        mViewModel.getSearchQueriesLiveData().observe(this, this::onSearchQueriesLoaded);
+        mViewModel.getOnSearchClickedEvent().observe(this, this::navigateToSearchResults);
     }
 
-    private void setupAdapter() {
-        mAdapter = new SearchHistoryAdapter(new SearchHistoryDiffUtil(), Picasso.get());
+    private void setupViews() {
+        mSearchQueriesRecyclerView = findViewById(R.id.search_history_list);
+        mSearchEditText = findViewById(R.id.search_input_edit_text);
+        findViewById(R.id.button_search).setOnClickListener(this::onSearchButtonClicked);
+        mAdapter = new SearchHistoryAdapter(new SearchHistoryDiffUtil(), query -> mViewModel.searchItem(query));
         mSearchQueriesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mSearchQueriesRecyclerView.setAdapter(mAdapter);
     }
 
-    private void onMoviesLoaded(@NonNull List<Movie> movies) {
-        mAdapter.submitList(movies);
+    private void onSearchQueriesLoaded(@NonNull List<String> queries) {
+        mAdapter.submitList(queries);
+    }
+
+    private void navigateToSearchResults(@NonNull String query) {
+        startActivity(SearchResultsActivity.createIntent(getApplicationContext(), query));
+    }
+
+    private void onSearchButtonClicked(View view) {
+        Editable editable = mSearchEditText.getText();
+        if (editable == null) {
+            return;
+        }
+        mViewModel.searchItem(editable.toString());
     }
 }
